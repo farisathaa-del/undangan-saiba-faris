@@ -15,7 +15,7 @@
     background:#f7f3ec; }
 
   /* ---- LATAR: beberapa foto saling ganti saat scroll + zoom pelan ---- */
-  #latar { position:fixed; inset:0; z-index:0; background:#f7f3ec;
+  #latar { position:fixed; inset:0; z-index:0; overflow:hidden; background:#f7f3ec;
     opacity:0; transition:opacity 1.5s ease;
     transform:translateY(calc(var(--p,0) * -1px)) scale(1.12); will-change:transform }  /* parallax */
   body.siap #latar { opacity:1 }
@@ -86,7 +86,7 @@
   h2::after { content:''; display:block; width:0; height:1px; background:#b9ab93; margin:10px auto 0;
     transition:width 1.2s ease .6s }
   section.terlihat h2::after { width:54px }
-  .script { font-family:'Great Vibes',cursive; font-size:46px; line-height:1.3; min-height:2.6em }
+  .script { font-family:'Great Vibes',cursive; font-weight:400; font-size:46px; line-height:1.3; min-height:2.6em }
   .script.mengetik::after { content:''; display:inline-block; width:2px; height:.85em;
     background:#3a3226; margin-left:5px; vertical-align:-.05em; animation:kedip .8s steps(1) infinite }
   @keyframes kedip { 50% { opacity:0 } }
@@ -109,7 +109,7 @@
     margin:14px auto; max-width:460px; text-align:center }
   .acara h3 { font-size:18px; letter-spacing:3px; text-transform:uppercase; margin-bottom:10px }
   .acara p { font-size:16px }
-  .map { display:inline-block; margin:14px 6px 0; font-size:13px; letter-spacing:2px;
+  .map { display:inline-block; margin:8px 6px 0; padding:9px 0; font-size:13px; letter-spacing:2px;
     border-bottom:1px solid #999; text-decoration:none; color:#3a3226 }
 
   /* ---- galeri ---- */
@@ -136,6 +136,7 @@
   #light .prev { left:2vw; top:50%; transform:translateY(-50%) }
   #light .next { right:2vw; top:50%; transform:translateY(-50%) }
   #light .tutup { top:10px; right:10px }
+  #light button { min-width:44px; min-height:44px; font-size:30px }
 
   /* ---- kisah kami: timeline ---- */
   .kisah { max-width:520px; margin:0 auto; text-align:left;
@@ -162,11 +163,12 @@
     -webkit-backdrop-filter:blur(12px); border:1px solid #e0d6c4;
     padding:22px; text-align:left; display:block }
   #rsvp .lbl { display:block; font-size:15px; margin-top:14px }
-  #rsvp .opt { display:inline-block; margin-right:18px; font-size:15px; cursor:pointer }
+  #rsvp .opt { display:inline-block; margin-right:18px; padding:9px 0; font-size:15px; cursor:pointer }
   #rsvp input[type=text], #rsvp textarea, #rsvp select {
     width:100%; padding:8px; font:inherit; font-size:16px; margin-top:4px;
     border:1px solid #d8cdb8; background:#fdfbf7; color:#3a3226 }
   #rsvp textarea { resize:vertical }
+  #rsvp ::placeholder { color:#6f675b; opacity:1 }
   #rsvp .kirim { display:block; width:100%; margin-top:18px; background:#2d2a24; color:#e8dcc8;
     border:none; padding:11px; font:inherit; letter-spacing:2px; cursor:pointer }
   #rsvp .kirim:hover { background:#4a453b }
@@ -219,8 +221,9 @@
 
   /* ---- alat bantu (bagian ini untuk belajar, boleh dihapus) ---- */
   #alat { background:#2d2a24; color:#e8dcc8; padding:14px 20px; font-size:14px }
-  #alat input { padding:6px 8px; width:60%; font:inherit }
+  #alat input { padding:9px 8px; width:60%; font:inherit }
   #alat button { padding:6px 12px; font:inherit; cursor:pointer }
+  button { min-height:44px }                          /* target sentuh nyaman */
   #hasil { word-break:break-all; display:block; margin-top:8px; font-size:13px; opacity:.85 }
 </style>
 </head>
@@ -253,7 +256,7 @@
 <section>
   <div class="sapa">Kepada Yth.<br>Bapak/Ibu/Saudara/i
     <span id="tamu">Tamu Undangan</span></div>
-  <div class="script">The Wedding Of<br>Fulan &amp; Aisyah</div>
+  <h1 class="script">The Wedding Of<br>Fulan &amp; Aisyah</h1>
 </section>
 
 <section>
@@ -306,13 +309,11 @@
     <h3>Akad Nikah</h3>
     <p>Kamis, 15 Oktober 2026<br>Pukul 08.00 WIB</p>
     <p style="margin-top:8px">Hadrah Garden, Lampeuneurut Ujong Blang,<br>Kec. Darul Imarah, Kab. Aceh Besar</p>
-    <a class="map" href="https://maps.google.com/?q=Hadrah+Garden+Aceh+Besar" target="_blank">GOOGLE MAPS</a>
   </div>
   <div class="acara">
     <h3>Resepsi</h3>
     <p>Kamis, 15 Oktober 2026<br>Pukul 10.00 WIB</p>
     <p style="margin-top:8px">Hadrah Garden, Lampeuneurut Ujong Blang,<br>Kec. Darul Imarah, Kab. Aceh Besar</p>
-    <a class="map" href="https://maps.google.com/?q=Hadrah+Garden+Aceh+Besar" target="_blank">GOOGLE MAPS</a>
   </div>
 
   <!-- peta tampil langsung di halaman (ganti kata di ?q= dengan nama lokasi Anda) -->
@@ -510,7 +511,7 @@ document.getElementById('rsvp').onsubmit = function (e) {
            + 'Kehadiran: ' + status
            + (status === 'Hadir' ? ' (' + document.getElementById('rJml').value + ')' : '') + '\n'
            + 'Ucapan: ' + document.getElementById('rUcap').value.trim();
-  window.open('https://wa.me/' + NOMOR_PENGANTIN + '?text=' + encodeURIComponent(teks), '_blank');
+  window.open('https://wa.me/' + NOMOR_PENGANTIN + '?text=' + encodeURIComponent(teks), '_blank', 'noopener');
   document.getElementById('rPesan').textContent =
     'WhatsApp terbuka — tekan kirim di sana agar konfirmasi kami terima.';
 };
