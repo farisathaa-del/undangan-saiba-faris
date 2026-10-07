@@ -12,7 +12,7 @@
 
   /* ---- LATAR: beberapa foto saling ganti saat scroll + zoom pelan ---- */
   #latar { position:fixed; inset:0; z-index:0; background:#f7f3ec;
-    opacity:0; transition:opacity .9s ease }
+    opacity:0; transition:opacity 1.5s ease }
   body.siap #latar { opacity:1 }
   #latar::after { content:''; position:absolute; inset:0; background:rgba(247,243,236,.76) }  /* wash biar teks terbaca */
   #latar .layer { position:absolute; inset:0; background-position:center; background-size:cover;
@@ -30,7 +30,7 @@
   /* ---- 0. AMPLOP (klik untuk membuka) ---- */
   #amplop { position:fixed; inset:0; z-index:60; background:#221e18;   /* solid: tak tembus pandang */
     display:flex; align-items:center; justify-content:center;
-    transition:opacity .7s, visibility .7s }
+    transition:opacity 1.2s ease, visibility 1.2s }
   #amplop.selesai { opacity:0; visibility:hidden }
   .env { position:relative; width:min(80vw,320px); height:200px; perspective:900px }
   .env-kartu { position:absolute; left:7%; right:7%; top:0; height:88%; z-index:1;
@@ -59,9 +59,19 @@
   #amplop.buka .env { animation:none }
 
   /* ---- isi ---- */
-  section { padding:56px 20px; text-align:center; transition:opacity .7s, transform .7s }
-  section.tampil { opacity:0; transform:translateY(18px) }
+  section { padding:56px 20px; text-align:center; transition:opacity 1.4s ease, transform 1.4s ease }
+  section.tampil { opacity:0; transform:translateY(44px) }
   section.tampil.terlihat { opacity:1; transform:none }
+  /* kata demi kata: tiap anak baris naik perlahan saat digulir */
+  section.tampil > * { opacity:0; transform:translateY(26px);
+    transition:opacity 1.3s ease, transform 1.3s ease }
+  section.tampil.terlihat > * { opacity:1; transform:none }
+  section.tampil > *:nth-child(2) { transition-delay:.18s }
+  section.tampil > *:nth-child(3) { transition-delay:.36s }
+  section.tampil > *:nth-child(4) { transition-delay:.54s }
+  section.tampil > *:nth-child(5) { transition-delay:.72s }
+  section.tampil > *:nth-child(6) { transition-delay:.90s }
+  section.tampil > *:nth-child(n+7) { transition-delay:1.08s }
   .kecil { font-size:13px; letter-spacing:3px; text-transform:uppercase; opacity:.6 }
   h2 { font-size:15px; letter-spacing:4px; text-transform:uppercase; margin-bottom:24px; opacity:.7 }
   h2::after { content:''; display:block; width:54px; height:1px; background:#b9ab93; margin:10px auto 0 }
@@ -374,6 +384,7 @@ document.getElementById('amplop').onclick = function () {
   setTimeout(function () {
     document.getElementById('amplop').classList.add('selesai');
     document.body.classList.add('siap');          /* transisi halus: latar foto fade-in */
+    mulaiReveal();                                /* kata2 isi fade-up pelan */
     var l = document.getElementById('lagu');
     l.volume = .6;
     l.play().then(function () { document.getElementById('musik').classList.add('putar'); })
@@ -430,16 +441,24 @@ document.getElementById('rsvp').onsubmit = function (e) {
     'WhatsApp terbuka — tekan kirim di sana agar konfirmasi kami terima.';
 };
 
-/* --- 8. TIAP BAGIAN: MUNCUL PERLAHAN + GANTI LATAR FOTO --- */
+/* --- 8. TIAP BAGIAN: MUNCUL PERLAHAN + GANTI LATAR FOTO ---
+   baru mulai setelah amplop dibuka, biar isi ikut fade-up pelan --- */
 var lapis = document.querySelectorAll('#latar .layer');
-document.querySelectorAll('section').forEach(function (s, i) {
-  s.classList.add('tampil');
-  new IntersectionObserver(function (e) {
-    if (!e[0].isIntersecting) return;
-    s.classList.add('terlihat');
-    lapis.forEach(function (l, j) { l.classList.toggle('aktif', j === i % lapis.length); });
-  }, { threshold: .15 }).observe(s);
-});
+var sudahMulai = false;
+function mulaiReveal() {
+  if (sudahMulai) return;
+  sudahMulai = true;
+  document.querySelectorAll('section').forEach(function (s, i) {
+    new IntersectionObserver(function (e) {
+      if (!e[0].isIntersecting) return;
+      s.classList.add('terlihat');
+      lapis.forEach(function (l, j) { l.classList.toggle('aktif', j === i % lapis.length); });
+    }, { threshold: .15 }).observe(s);
+  });
+}
+/* sembunyikan semua bagian sejak awal — tak terlihat karena tertutup amplop,
+   dan keadaan tersembunyi ini sudah sempat digambar saat fade-up dijalankan */
+document.querySelectorAll('section').forEach(function (s) { s.classList.add('tampil'); });
 if (lapis[0]) lapis[0].classList.add('aktif');
 
 /* --- 9. ALAT BELAJAR: buat link personal --- */
