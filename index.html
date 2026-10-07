@@ -7,7 +7,7 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Undangan Pernikahan Saiba &amp; Faris">
 <meta property="og:description" content="Senin, 28 Februari 2028 — Hadrah Garden, Aceh Besar.">
-<meta property="og:image" content="https://farisathaa-del.github.io/undangan-saiba-faris/bg.jpg">
+<meta property="og:image" content="https://farisathaa-del.github.io/undangan-saiba-faris?v=2/bg.jpg">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Great+Vibes&display=swap" rel="stylesheet">
 <style>
   * { margin:0; padding:0; box-sizing:border-box }
@@ -456,7 +456,7 @@ document.getElementById('amplop').onclick = function () {
   setTimeout(function () {
     document.getElementById('amplop').classList.add('selesai');
     document.body.classList.add('siap');          /* transisi halus: latar foto fade-in */
-    mulaiReveal(); ketikNama();                   /* kata2 isi fade-up pelan + tik nama */
+    mulaiReveal(); ketikNama(); if(document.querySelector('.script').textContent.indexOf('Fulan')>=0){document.querySelector('.script').innerHTML='The Wedding Of<br>Saiba ketikNama();amp; Faris';}                   /* kata2 isi fade-up pelan + tik nama */
     var l = document.getElementById('lagu');
     l.volume = .6;
     l.play().then(function () { document.getElementById('musik').classList.add('putar'); })
