@@ -27,7 +27,7 @@
   .sapa #tamu { display:block; font-family:'Great Vibes',cursive; font-size:44px; color:#3a3226;
     letter-spacing:0; line-height:1.3; margin-top:2px }
 
-  /* ---- 0. AMPLOP (klik segel merah untuk membuka) ---- */
+  /* ---- 0. AMPLOP (klik untuk membuka) ---- */
   #amplop { position:fixed; inset:0; z-index:60; background:#221e18;   /* solid: tak tembus pandang */
     display:flex; align-items:center; justify-content:center;
     transition:opacity .7s, visibility .7s }
@@ -47,15 +47,16 @@
     clip-path:polygon(0 0, 100% 0, 50% 100%);
     transform-origin:top center; transition:transform .7s }
   #amplop.buka .env-lipat { transform:rotateX(-172deg); z-index:0 }
-  #segel { position:absolute; left:50%; top:60%; transform:translate(-50%,-50%); z-index:4;
-    width:58px; height:58px; border-radius:50%; border:none; cursor:pointer;
-    background:radial-gradient(circle at 34% 30%, #c2504a, #8e2f2c 70%);
-    color:#f7e7d9; font-family:'Great Vibes',cursive; font-size:20px; line-height:1;
-    box-shadow:0 4px 12px rgba(0,0,0,.45), inset 0 0 0 3px rgba(255,255,255,.12);
-    transition:.5s; animation:getar 2.2s ease-in-out infinite }
-  #segel span { font-size:13px }
-  @keyframes getar { 50% { box-shadow:0 4px 12px rgba(0,0,0,.45), 0 0 0 9px rgba(194,80,74,.28) } }
-  #amplop.buka #segel { opacity:0; transform:translate(-50%,-50%) scale(.5); pointer-events:none }
+  /* getar halus = ajakan menekan amplop */
+  .env { animation:getar 1.7s ease-in-out infinite; cursor:pointer }
+  @keyframes getar {
+    0%, 100% { transform:rotate(0deg) scale(1) }
+    15%      { transform:rotate(-2.4deg) scale(1.035) }
+    35%      { transform:rotate(2.4deg)  scale(1.035) }
+    55%      { transform:rotate(-1.6deg) scale(1.02) }
+    75%      { transform:rotate(1.6deg)  scale(1.01) }
+  }
+  #amplop.buka .env { animation:none }
 
   /* ---- isi ---- */
   section { padding:56px 20px; text-align:center; transition:opacity .7s, transform .7s }
@@ -148,6 +149,9 @@
   .kupu.b { animation-duration:22s, 1.9s; animation-delay:-8s, 0s; transform:scale(.75) }
 
   /* ---- tombol musik ---- */
+  /* hiasan baru muncul setelah amplop dibuka */
+  body:not(.siap) #kelopak, body:not(.siap) .kupu { display:none }
+
   #musik { position:fixed; right:16px; bottom:16px; z-index:40; width:44px; height:44px;
     border-radius:50%; border:1px solid #b9ab93; background:rgba(255,255,255,.92); cursor:pointer; font-size:18px }
   .putar { animation:spin 4s linear infinite }
@@ -176,13 +180,12 @@
   <i class="layer" style="background-image:url('foto4.jpg')"></i>
 </div>
 
-<!-- ============ 0. AMPLOP — klik segel merah ============ -->
+<!-- ============ 0. AMPLOP — klik untuk membuka ============ -->
 <div id="amplop">
   <div class="env">
     <div class="env-kartu"><span>Undangan<br>Fulan &amp; Aisyah</span></div>
     <div class="env-badan"></div>
     <div class="env-lipat"></div>
-    <button id="segel" title="Buka undangan">F<span>&amp;</span>A</button>
   </div>
 </div>
 
@@ -357,7 +360,8 @@ for (var i = 0; i < 14; i++) {
 }
 
 /* --- 1b. KLIK SEGEL -> BUNGA MELETUS -> AMPLOP TERBUKA -> LANGSUNG ISI --- */
-document.getElementById('segel').onclick = function () {
+document.getElementById('amplop').onclick = function () {
+  if (this.classList.contains('buka')) return;
   var letus = document.getElementById('letus');
   for (var i = 0; i < 12; i++) {
     var f = document.createElement('i'), a = Math.random() * Math.PI * 2, r = 90 + Math.random() * 130;
