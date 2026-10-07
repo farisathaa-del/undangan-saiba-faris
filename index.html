@@ -10,6 +10,7 @@
 <meta property="og:image" content="https://farisathaa-del.github.io/undangan-fulan-aisyah/bg.jpg">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Great+Vibes&display=swap" rel="stylesheet">
 <style>
+  :root { --aksen:#6f7a5a; --krem:#c5c3b0; --emas1:#9a7b3f; --emas2:#f0dcae; --tinta:#24301f }
   * { margin:0; padding:0; box-sizing:border-box }
   body { font-family:'Cormorant Garamond',serif; color:#3a3226; line-height:1.7;
     background:#f7f3ec; }
@@ -32,11 +33,26 @@
   .sapa #tamu { display:block; font-family:'Great Vibes',cursive; font-size:44px; color:#3a3226;
     letter-spacing:0; line-height:1.3; margin-top:2px }
 
+  /* ---- loading monogram (1,5 dtk sebelum amplop) ---- */
+  #mono { position:fixed; inset:0; z-index:70; display:flex; align-items:center; justify-content:center;
+    pointer-events:none;   /* tap pertama tetap sampai ke amplop */
+    background:#221e18; color:var(--emas2); font-family:'Great Vibes',cursive; font-size:58px;
+    transition:opacity .9s ease, visibility .9s }
+  #mono.selesai { opacity:0; visibility:hidden }
+  #mono span { position:relative; display:inline-block; padding:38px 46px }
+  #mono span::before { content:''; position:absolute; inset:0; border-radius:50%;
+    border:1px solid rgba(240,220,174,.5); border-top-color:transparent;
+    animation:putarMono 1.6s linear infinite }
+  @keyframes putarMono { to { transform:rotate(360deg) } }
+
   /* ---- 0. AMPLOP (klik untuk membuka) ---- */
   #amplop { position:fixed; inset:0; z-index:60; background:#221e18;   /* solid: tak tembus pandang */
     display:flex; align-items:center; justify-content:center;
     transition:opacity 1.2s ease, visibility 1.2s }
   #amplop.selesai { opacity:0; visibility:hidden }
+  #amplop .daun { position:absolute; top:50%; width:66px; opacity:.55; pointer-events:none }
+  #amplop .daun.kiri { left:3vw; transform:translateY(-50%) scaleX(-1) }
+  #amplop .daun.kanan { right:3vw; transform:translateY(-50%) }
   .env { position:relative; width:min(80vw,320px); height:200px; perspective:900px }
   .env-kartu { position:absolute; left:7%; right:7%; top:0; height:88%; z-index:1;
     background:#fffdf6; border:1px solid #e0d6c4; display:flex; justify-content:center;
@@ -65,6 +81,13 @@
 
   /* ---- isi ---- */
   section { padding:56px 20px; text-align:center; transition:opacity 1.4s ease, transform 1.4s ease }
+  /* ornamen ukir di 4 sudut tiap bagian (aset: orn.svg) */
+  section::before { content:''; position:absolute; inset:12px; opacity:0; pointer-events:none;
+    background:url('orn.svg') center/100% 100% no-repeat; transition:opacity 1.6s ease .4s }
+  section.terlihat::before { opacity:.5 }
+  /* kurva pembatas antar bagian (aset: kurva.svg) */
+  section::after { content:''; position:absolute; left:0; right:0; bottom:-1px; height:34px; opacity:.4;
+    pointer-events:none; background:url('kurva.svg') center bottom/100% 100% no-repeat }
   section.tampil { opacity:0; transform:translateY(44px) }
   section.tampil.terlihat { opacity:1; transform:none }
   /* kata demi kata: tiap anak baris naik perlahan saat digulir */
@@ -82,8 +105,10 @@
     transition:opacity .9s ease, transform .9s ease }
   section.terlihat .kata { opacity:1; transform:none }
   .kecil { font-size:13px; letter-spacing:3px; text-transform:uppercase; opacity:.6 }
-  h2 { font-size:15px; letter-spacing:4px; text-transform:uppercase; margin-bottom:24px; opacity:.7 }
-  h2::after { content:''; display:block; width:0; height:1px; background:#b9ab93; margin:10px auto 0;
+  h2 { font-size:15px; letter-spacing:4px; text-transform:uppercase; margin-bottom:24px;
+    background:linear-gradient(100deg,var(--emas1),var(--emas2) 45%,var(--emas1));
+    -webkit-background-clip:text; background-clip:text; color:transparent }
+  h2::after { content:''; display:block; width:0; height:1px; background:var(--krem); margin:10px auto 0;
     transition:width 1.2s ease .6s }
   section.terlihat h2::after { width:54px }
   .script { font-family:'Great Vibes',cursive; font-weight:400; font-size:46px; line-height:1.3; min-height:2.6em }
@@ -93,6 +118,12 @@
   .quote { font-style:italic; font-size:17px; max-width:520px; margin:0 auto 10px; text-align:justify }
   .or { display:flex; gap:18px; align-items:center; justify-content:center; flex-wrap:wrap; margin-top:30px }
   .or > div { flex:1; min-width:180px }
+  .potret { width:150px; height:200px; margin:0 auto 14px; overflow:hidden; background:#e9e2d5;
+    border:1px solid var(--krem); border-radius:78px 78px 6px 6px }
+  .potret img { width:100%; height:100%; object-fit:cover; display:block; filter:sepia(.18) contrast(1.02) }
+  .or { position:relative }
+  .raksasa { position:absolute; inset:0; z-index:-1; display:flex; align-items:center; justify-content:center;
+    font-family:'Great Vibes',cursive; font-size:170px; color:var(--tinta); opacity:.07; pointer-events:none }
   .or .nm { font-family:'Great Vibes',cursive; font-size:34px }
   .or .org { font-size:14px; opacity:.75 }
 
@@ -182,7 +213,8 @@
   .qris img { width:180px; height:180px; display:block; margin:10px auto;
     border:1px solid #e0d6c4; background:#fff }
 
-  .garis { width:60px; height:1px; background:#b9ab93; margin:0 auto 14px }
+  .garis { width:60px; height:1px; margin:0 auto 14px;
+    background:linear-gradient(90deg,transparent,var(--emas1),var(--emas2),var(--emas1),transparent) }
   footer { text-align:center; padding:40px 20px 60px; font-size:14px; background:rgba(45,42,36,.88); color:#e8dcc8 }
   footer .garis { background:#8b8471 }
   footer .kecil { opacity:.6 }
@@ -213,7 +245,7 @@
   body:not(.siap) #kelopak, body:not(.siap) .kupu { display:none }
 
   #musik { position:fixed; right:16px; bottom:16px; z-index:40; width:44px; height:44px;
-    border-radius:50%; border:1px solid #b9ab93; background:rgba(255,255,255,.92); cursor:pointer; font-size:18px }
+    border-radius:50%; border:1px solid var(--krem); background:rgba(255,255,255,.92); cursor:pointer; font-size:18px }
   .putar { animation:spin 4s linear infinite, denyut 2.2s ease-in-out infinite }
   @keyframes spin { to { transform:rotate(360deg) } }
   @keyframes denyut { 0%,100% { box-shadow:0 0 0 0 rgba(45,42,36,.35) }
@@ -243,8 +275,13 @@
   <i class="layer" style="background-image:url('foto4.jpg')"></i>
 </div>
 
+<!-- ============ -1. LOADING MONOGRAM (1,5 dtk) ============ -->
+<div id="mono"><span>F &amp; A</span></div>
+
 <!-- ============ 0. AMPLOP — klik untuk membuka ============ -->
 <div id="amplop">
+  <img class="daun kiri" src="daun.svg" alt="">
+  <img class="daun kanan" src="daun.svg" alt="">
   <div class="env">
     <div class="env-kartu"><span>Undangan<br>Fulan &amp; Aisyah</span></div>
     <div class="env-badan"></div>
@@ -269,13 +306,16 @@
   <h2>Bride &amp; Groom</h2>
   <p style="max-width:520px; margin:0 auto">Dengan memohon rahmat dan ridho Allah Subhanahu Wa Ta'ala, kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri resepsi pernikahan kami</p>
   <div class="or">
+    <div class="raksasa">F &amp; A</div>
     <div>
+      <div class="potret"><img src="foto1.jpg" alt="Fulan"></div>
       <div class="nm">Fulan</div>
       <p>Fulan, S.H.</p>
       <div class="org">Putra dari:<br>Bapak H. Ahmad dan Ibu Hj. Zahra</div>
     </div>
     <div style="font-size:30px">&amp;</div>
     <div>
+      <div class="potret"><img src="foto2.jpg" alt="Aisyah"></div>
       <div class="nm">Aisyah</div>
       <p>Aisyah, S.Sos.</p>
       <div class="org">Putri dari:<br>Bapak Drs. H. Rahman dan Ibu Dra. Hj. Halimah</div>
@@ -389,6 +429,13 @@
     <button type="submit" class="kirim">KIRIM KONFIRMASI</button>
     <p id="rPesan" role="status"></p>
   </form>
+</section>
+
+<section>
+  <div class="garis"></div>
+  <p class="quote">"Barakallahu laka wa baraka 'alaika wa jama'a bainakuma fii khairin."<br>
+    Semoga Allah memberkahimu, dan mengumpulkan kalian berdua dalam kebaikan.</p>
+  <div class="kecil" style="margin-top:12px">Doa untuk Pengantin</div>
 </section>
 
 <footer>
@@ -558,6 +605,11 @@ document.querySelectorAll('section').forEach(function (sec) {
   });
 });
 if (lapis[0]) lapis[0].classList.add('aktif');
+
+/* --- 7b. LOADING MONOGRAM: hilang setelah 1,5 dtk --- */
+setTimeout(function () {
+  document.getElementById('mono').classList.add('selesai');
+}, 1500);
 
 /* --- 8b. NAMA MEMPELAI DITIK SATU HURUF (mulai setelah amplop dibuka) --- */
 var JUDUL = document.querySelector('.script') ? document.querySelector('.script').innerHTML : '';
