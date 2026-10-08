@@ -14,16 +14,15 @@
   body { font-family:'Cormorant Garamond',serif; color:#3a3226; line-height:1.7;
     background:#f7f3ec; }
 
-  /* ---- LATAR: beberapa foto saling ganti saat scroll + zoom pelan ---- */
-  #latar { position:fixed; inset:0; z-index:0; overflow:hidden; background:#f7f3ec;
-    opacity:0; transition:opacity 1.5s ease;
-    transform:translateY(calc(var(--p,0) * -1px)) scale(1.12); will-change:transform }  /* parallax */
+  /* ---- LATAR: foto silih ganti + zoom halus; parallax rAF (tanpa scale container) ---- */
+  #latar { position:fixed; inset:-44px 0; z-index:0; overflow:hidden; background:#f7f3ec;
+    opacity:0; transition:opacity 1.5s ease; will-change:transform }
   body.siap #latar { opacity:1 }
   #latar::after { content:''; position:absolute; inset:0; background:rgba(247,243,236,.76) }  /* wash biar teks terbaca */
-  #latar .layer { position:absolute; inset:0; background-position:center; background-size:cover;
-    opacity:0; transition:opacity 1.6s ease }
-  #latar .layer.aktif { opacity:1; animation:zoom 18s ease-out forwards }
-  @keyframes zoom { from { transform:scale(1) } to { transform:scale(1.14) } }
+  #latar .layer { position:absolute; inset:-6%; background-position:center; background-size:cover;
+    opacity:0; transition:opacity 1.6s ease; will-change:transform }   /* -6% = ruang buat zoom, tepi tak bocor */
+  #latar .layer.aktif { opacity:1; animation:zoom 26s linear forwards }
+  @keyframes zoom { from { transform:scale(1) } to { transform:scale(1.08) } }
   section, footer, #alat { position:relative; z-index:1 }
   .wrap { max-width:640px; margin:0 auto; padding:0 20px }
 
@@ -582,14 +581,22 @@ function ketikNama() {
 }
 if (document.querySelector('.script')) if(document.querySelector('.script')){var sc=document.querySelector('.script'); if(sc.innerHTML.indexOf('Saiba')===-1){sc.innerHTML='The Wedding Of<br>Faris &amp; Saiba'; sc.classList.remove('mengetik');}}
 
-/* --- 8c. PARALLAX: latar bergerak lebih lambat dari teks saat scroll --- */
-var parT;
-addEventListener('scroll', function () {
-  if (parT) return;
-  parT = setTimeout(function () { parT = 0;
-    document.getElementById('latar').style.setProperty('--p', Math.min(scrollY * .03, 40));
-  }, 60);
-}, { passive: true });
+/* --- 8c. PARALLAX: rAF + easing (bebas stutter scroll cepat) --- */
+(function () {
+  var el = document.getElementById('latar');
+  var target = 0, now = 0, jalan = false;
+  function loop () {
+    now += (target - now) * .08;           // ponytail: lerp tetap 0.08; per-frame kalau mau adaptif dt
+    if (Math.abs(target - now) < .05) now = target;
+    el.style.transform = 'translate3d(0,' + (-now).toFixed(2) + 'px,0)';
+    if (now === target) { jalan = false; return; }
+    requestAnimationFrame(loop);
+  }
+  addEventListener('scroll', function () {
+    target = Math.min(scrollY * .06, 44);
+    if (!jalan) { jalan = true; requestAnimationFrame(loop); }
+  }, { passive: true });
+})();
 
 /* --- 9. ALAT BELAJAR: buat link personal --- */
 /* --- 10. LIGHTBOX GALERI --- */
