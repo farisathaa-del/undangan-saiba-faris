@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Undangan Pernikahan — Saiba & Faris</title>
+<title>Undangan Pernikahan — Faris & Saiba</title>
 <meta property="og:type" content="website">
-<meta property="og:title" content="Undangan Pernikahan Saiba &amp; Faris">
+<meta property="og:title" content="Undangan Pernikahan Faris &amp; Saiba">
 <meta property="og:description" content="Senin, 28 Februari 2028 — Hadrah Garden, Aceh Besar.">
 <meta property="og:image" content="https://farisathaa-del.github.io/undangan-saiba-faris/bg.jpg">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,600&family=Great+Vibes&display=swap" rel="stylesheet">
@@ -247,7 +247,7 @@
 <!-- ============ 0. AMPLOP — klik untuk membuka ============ -->
 <div id="amplop">
   <div class="env">
-    <div class="env-kartu"><span>Undangan<br>Saiba &amp; Faris</span></div>
+    <div class="env-kartu"><span>Undangan<br>Faris &amp; Saiba</span></div>
     <div class="env-badan"></div>
     <div class="env-lipat"></div>
   </div>
@@ -257,7 +257,7 @@
 <section>
   <div class="sapa">Kepada Yth.<br>Bapak/Ibu/Saudara/i
     <span id="tamu">Tamu Undangan</span></div>
-  <h1 class="script">The Wedding Of<br>Saiba &amp; Faris</h1>
+  <h1 class="script">The Wedding Of<br>Faris &amp; Saiba</h1>
 </section>
 
 <section>
@@ -271,15 +271,15 @@
   <p style="max-width:520px; margin:0 auto">Dengan memohon rahmat dan ridho Allah Subhanahu Wa Ta'ala, kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri resepsi pernikahan kami</p>
   <div class="or">
     <div>
-      <div class="nm">Saiba</div>
-      <p>Saiba, S.H.</p>
-      <div class="org">Putra dari:<br>Bapak H. Ahmad dan Ibu Hj. Zahra</div>
-    </div>
-    <div style="font-size:30px">&amp;</div>
-    <div>
       <div class="nm">Faris</div>
       <p>Faris, S.Sos.</p>
       <div class="org">Putri dari:<br>Bapak Drs. H. Rahman dan Ibu Dra. Hj. Halimah</div>
+    </div>
+    <div style="font-size:30px">&amp;</div>
+    <div>
+      <div class="nm">Saiba</div>
+      <p>Saiba, S.H.</p>
+      <div class="org">Putra dari:<br>Bapak H. Ahmad dan Ibu Hj. Zahra</div>
     </div>
   </div>
 </section>
@@ -394,7 +394,7 @@
 
 <footer>
   <div class="garis"></div>
-  The Wedding of Saiba &amp; Faris<br>
+  The Wedding of Faris &amp; Saiba<br>
   <span class="kecil" style="letter-spacing:2px">Kami yang berbahagia</span>
 </footer>
 
@@ -427,7 +427,7 @@ var NOMOR_PENGANTIN = '6281234567890';   // nomor WhatsApp pengantin, format 628
 var nama = new URLSearchParams(location.search).get('to');
 if (nama) {
   document.getElementById('tamu').textContent = nama;
-  document.title = 'Undangan Pernikahan — Saiba & Faris';
+  document.title = 'Undangan Pernikahan — Faris & Saiba';
   document.getElementById('rNama').value = nama;
 }
 
@@ -507,7 +507,7 @@ cekHadir();
 document.getElementById('rsvp').onsubmit = function (e) {
   e.preventDefault();
   var status = document.querySelector('input[name=hadir]:checked').value;
-  var teks = 'KONFIRMASI UNDANGAN — Saiba & Faris\n'
+  var teks = 'KONFIRMASI UNDANGAN — Faris & Saiba\n'
            + 'Nama: ' + document.getElementById('rNama').value.trim() + '\n'
            + 'Kehadiran: ' + status
            + (status === 'Hadir' ? ' (' + document.getElementById('rJml').value + ')' : '') + '\n'
@@ -561,11 +561,11 @@ document.querySelectorAll('section').forEach(function (sec) {
 if (lapis[0]) lapis[0].classList.add('aktif');
 
 /* --- 8b. NAMA MEMPELAI DITIK SATU HURUF (mulai setelah amplop dibuka) --- */
-var JUDUL = 'The Wedding Of<br>Saiba &amp; Faris';
+var JUDUL = 'The Wedding Of<br>Faris &amp; Saiba';
 function ketikNama() {
   var j = document.querySelector('.script');
   if (!j) return;
-  var baris = ['The Wedding Of','Saiba & Faris'];
+  var baris = ['The Wedding Of','Faris & Saiba'];
   j.textContent = ''; j.classList.add('mengetik');
   var li = 0, ci = 0;
   setTimeout(function () {
@@ -577,7 +577,7 @@ function ketikNama() {
     }, 75);
   }, 900);
 }
-if (document.querySelector('.script')) if(document.querySelector('.script')){var sc=document.querySelector('.script'); if(sc.innerHTML.indexOf('Saiba')===-1){sc.innerHTML='The Wedding Of<br>Saiba &amp; Faris'; sc.classList.remove('mengetik');}}
+if (document.querySelector('.script')) if(document.querySelector('.script')){var sc=document.querySelector('.script'); if(sc.innerHTML.indexOf('Saiba')===-1){sc.innerHTML='The Wedding Of<br>Faris &amp; Saiba'; sc.classList.remove('mengetik');}}
 
 /* --- 8c. PARALLAX: latar bergerak lebih lambat dari teks saat scroll --- */
 var parT;
