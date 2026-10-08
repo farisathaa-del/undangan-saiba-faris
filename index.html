@@ -8,6 +8,10 @@
 <meta property="og:title" content="Undangan Pernikahan Faris &amp; Saiba">
 <meta property="og:description" content="Senin, 28 Februari 2028 — Hadrah Garden, Aceh Besar.">
 <meta property="og:image" content="https://farisathaa-del.github.io/undangan-saiba-faris/bg.jpg">
+<link rel="icon" href="favicon.svg">
+<!-- WebP: hemat ±63%byte vs JPG. og:image sengaja tetap .jpg — bot WhatsApp/Telegram tak selalu baca WebP -->
+<link rel="preload" as="image" href="bg.webp">
+<link rel="preload" as="image" href="foto5.webp">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,600&family=Great+Vibes&display=swap" rel="stylesheet">
 <style>
   * { margin:0; padding:0; box-sizing:border-box }
@@ -149,6 +153,14 @@
 
   /* ---- baris tombol navigasi ---- */
   .navigasi { text-align:center; margin-top:12px }
+  .palet { display:flex; gap:12px; justify-content:center; margin-top:16px }
+  .palet span { width:54px; height:54px; border-radius:50%; border:2px solid rgba(255,255,255,.85);
+    box-shadow:0 2px 10px rgba(42,26,21,.3); display:inline-block }
+  .wall { display:flex; flex-direction:column; gap:10px; margin-top:18px; max-height:420px; overflow:auto }
+  .wall .u { background:rgba(255,255,255,.85); border:1px solid #e0d6c4; padding:12px 14px; text-align:left }
+  .wall .u b { display:block; font-size:14px; letter-spacing:1px }
+  .wall .u p { font-size:15px; margin:0 }
+  .wall .kosong { opacity:.6; font-style:italic }
 
   /* ---- gift ---- */
   .rek { background:rgba(255,255,255,.6); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
@@ -237,10 +249,10 @@
 
 <!-- LATAR — 4 foto silih ganti saat di-gulir. Tambah/kurangi baris <i>, ganti nama file bebas -->
 <div id="latar">
-  <i class="layer" style="background-image:url('bg.jpg')"></i>
-  <i class="layer" style="background-image:url('foto5.jpg')"></i>
-  <i class="layer" style="background-image:url('foto1.jpg')"></i>
-  <i class="layer" style="background-image:url('foto7.jpg')"></i>
+  <i class="layer" style="background-image:url('bg.webp')"></i>
+  <i class="layer" style="background-image:url('foto5.webp')"></i>
+  <i class="layer" style="background-image:url('foto1.webp')"></i>
+  <i class="layer" style="background-image:url('foto7.webp')"></i>
 </div>
 
 <!-- ============ 0. AMPLOP — klik untuk membuka ============ -->
@@ -286,10 +298,10 @@
 <section>
   <h2>Kisah Kami</h2>
   <div class="kisah">
-    <div class="step"><img src="foto2.jpg" alt=""><div><b>2021</b><p>Pertama bertemu di acara teman — obrolan yang tak pernah habis sejak saat itu.</p></div></div>
-    <div class="step"><img src="foto3.jpg" alt=""><div><b>2023</b><p>Saling mengenal keluarga, dan sepakat melangkah ke tahap serius.</p></div></div>
-    <div class="step"><img src="foto4.jpg" alt=""><div><b>2025</b><p>Lamaran sederhana, restu orang tua, dan satu janji yang sama.</p></div></div>
-    <div class="step"><img src="foto1.jpg" alt=""><div><b>28 . 02 . 2028</b><p>Hari bahagia yang kami tunggu — dan ingin Anda bagikan bersama.</p></div></div>
+    <div class="step"><img src="foto2.webp" alt=""><div><b>2021</b><p>Pertama bertemu di acara teman — obrolan yang tak pernah habis sejak saat itu.</p></div></div>
+    <div class="step"><img src="foto3.webp" alt=""><div><b>2023</b><p>Saling mengenal keluarga, dan sepakat melangkah ke tahap serius.</p></div></div>
+    <div class="step"><img src="foto4.webp" alt=""><div><b>2025</b><p>Lamaran sederhana, restu orang tua, dan satu janji yang sama.</p></div></div>
+    <div class="step"><img src="foto1.webp" alt=""><div><b>28 . 02 . 2028</b><p>Hari bahagia yang kami tunggu — dan ingin Anda bagikan bersama.</p></div></div>
   </div>
 </section>
 
@@ -301,6 +313,10 @@
     <div><b id="h">00</b><span>Jam</span></div>
     <div><b id="m">00</b><span>Menit</span></div>
     <div><b id="s">00</b><span>Detik</span></div>
+  </div>
+  <div class="navigasi">
+    <a class="map" id="kalAkad" download="Akad-Faris-Saiba.ics">SIMPAN AKAD</a>
+    <a class="map" id="kalResepsi" download="Resepsi-Faris-Saiba.ics">SIMPAN RESEPSI</a>
   </div>
 </section>
 
@@ -327,17 +343,27 @@
   </div>
 </section>
 
+<section>
+  <h2>Dress Code</h2>
+  <p style="max-width:460px; margin:0 auto">Mohon hadir dengan busana bernuansa</p>
+  <div class="palet">
+    <span style="background:#643f37"></span><span style="background:#2a1a15"></span>
+    <span style="background:#967067"></span><span style="background:#c9a35c"></span>
+  </div>
+  <p class="kecil" style="margin-top:12px">Cokelat kayu &amp; emas — selaras dekorasi<br>Formal / Batik</p>
+</section>
+
 <!-- Galeri: ganti foto1..foto4 dengan foto Anda sendiri, nama file tetap sama -->
 <section>
   <h2>Galeri</h2>
   <div class="gal">
-    <figure><img src="foto1.jpg" alt="Upacara"><figcaption>Upacara</figcaption></figure>
-    <figure><img src="foto2.jpg" alt="Mempelai"><figcaption>Mempelai</figcaption></figure>
-    <figure><img src="foto3.jpg" alt="Dekorasi"><figcaption>Dekorasi</figcaption></figure>
-    <figure><img src="foto4.jpg" alt="Detail"><figcaption>Detail</figcaption></figure>
-    <figure><img src="foto5.jpg" alt="Busana 1" style="height:320px"><figcaption>Busana 1</figcaption></figure>
-    <figure><img src="foto6.jpg" alt="Busana 2" style="height:320px"><figcaption>Busana 2</figcaption></figure>
-    <figure><img src="foto7.jpg" alt="Engagement" style="height:320px"><figcaption>Engagement</figcaption></figure>
+    <figure><img src="foto1.webp" alt="Upacara"><figcaption>Upacara</figcaption></figure>
+    <figure><img src="foto2.webp" alt="Mempelai"><figcaption>Mempelai</figcaption></figure>
+    <figure><img src="foto3.webp" alt="Dekorasi"><figcaption>Dekorasi</figcaption></figure>
+    <figure><img src="foto4.webp" alt="Detail"><figcaption>Detail</figcaption></figure>
+    <figure><img src="foto5.webp" alt="Busana 1" style="height:320px"><figcaption>Busana 1</figcaption></figure>
+    <figure><img src="foto6.webp" alt="Busana 2" style="height:320px"><figcaption>Busana 2</figcaption></figure>
+    <figure><img src="foto7.webp" alt="Engagement" style="height:320px"><figcaption>Engagement</figcaption></figure>
   </div>
 </section>
 
@@ -392,6 +418,19 @@
     <button type="submit" class="kirim">KIRIM KONFIRMASI</button>
     <p id="rPesan" role="status"></p>
   </form>
+</section>
+
+<section>
+  <h2>Ucapan &amp; Doa</h2>
+  <form id="kirimUcap">
+    <label class="lbl" for="wNama">Nama</label>
+    <input type="text" id="wNama" required maxlength="60" placeholder="Nama Anda">
+    <label class="lbl" for="wPesan">Ucapan &amp; doa</label>
+    <textarea id="wPesan" rows="3" required maxlength="280" placeholder="Barakallahu lakuma wa baraka 'alaikuma..."></textarea>
+    <button type="submit" class="kirim">KIRIM KE WALL</button>
+    <p id="wStatus" role="status"></p>
+  </form>
+  <div id="wall" class="wall"></div>
 </section>
 
 <footer>
@@ -597,6 +636,62 @@ if (document.querySelector('.script')) if(document.querySelector('.script')){var
     if (!jalan) { jalan = true; requestAnimationFrame(loop); }
   }, { passive: true });
 })();
+
+/* --- 8d. SIMPAN KE KALENDER: .ics dirakit di browser, tanpa file server --- */
+function bikinIcs(tajuk, jamUtc, durasiJam, ulang) {
+  function p2(x) { return (x < 10 ? '0' : '') + x; }
+  function w(d) { return d.getUTCFullYear() + p2(d.getUTCMonth() + 1) + p2(d.getUTCDate()) + 'T' + p2(d.getUTCHours()) + p2(d.getUTCMinutes()) + '00Z'; }
+  var mulai = new Date(Date.UTC(2028, 1, 28, jamUtc, 0));
+  var selesai = new Date(mulai.getTime() + durasiJam * 36e5);
+  return ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//faris-saiba//id', 'BEGIN:VEVENT',
+    'UID:' + ulang + '@faris-saiba', 'DTSTAMP:' + w(new Date()),
+    'DTSTART:' + w(mulai), 'DTEND:' + w(selesai),
+    'SUMMARY:' + tajuk,
+    'LOCATION:Hadrah Garden, Lampeuneurut Ujong Blang, Aceh Besar',
+    'DESCRIPTION:Undangan online: https://farisathaa-del.github.io/undangan-saiba-faris/',
+    'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+}
+// WIB = UTC+7 -> 08.00 WIB = 01.00 UTC (ponytail: tetap UTC manual; kalau ada acara lain, pindah ke data-attr)
+document.getElementById('kalAkad').href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(bikinIcs('Akad Nikah — Faris & Saiba', 1, 1.5, 'akad'));
+document.getElementById('kalResepsi').href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(bikinIcs('Resepsi — Faris & Saiba', 3, 4, 'resepsi'));
+
+/* --- 8e. WALL UCAPAN: Supabase kalau tabel sudah dibuat; cadangan localStorage --- */
+var SB = 'https://nnvauxgeskejzmzenbkn.supabase.co/rest/v1/wedding_notes';
+var SB_KEY = 'sb_publishable_FjXQhNdL_TjifvXXfB_T4A_RH7kDD3G';
+var wallEl = document.getElementById('wall');
+function tampilWall(list) {
+  wallEl.innerHTML = '';
+  if (!list.length) { wallEl.innerHTML = '<p class="kosong">Belum ada ucapan — jadilah yang pertama.</p>'; return; }
+  list.forEach(function (w) {
+    var d = document.createElement('div'); d.className = 'u';
+    var b = document.createElement('b'); b.textContent = w.nama;
+    var p = document.createElement('p'); p.textContent = w.pesan;   // textContent: anti-XSS
+    d.appendChild(b); d.appendChild(p); wallEl.appendChild(d);
+  });
+}
+function bacaLokal() { try { return JSON.parse(localStorage.getItem('ucapan') || '[]'); } catch (e) { return []; } }
+function muatWall() {
+  fetch(SB + '?select=nama,pesan&order=tasc&limit=40', { headers: { apikey: SB_KEY, Authorization: 'Bearer ' + SB_KEY } })
+    .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+    .then(function (d) { tampilWall(d.reverse()); })
+    .catch(function () { tampilWall(bacaLokal().slice(-40).reverse()); });   // tabel belum ada -> per-device
+}
+muatWall();
+document.getElementById('kirimUcap').onsubmit = function (e) {
+  e.preventDefault();
+  var w = { nama: document.getElementById('wNama').value.trim().slice(0, 60),
+            pesan: document.getElementById('wPesan').value.trim().slice(0, 280) };
+  if (!w.nama || !w.pesan) return;
+  var lok = bacaLokal(); lok.push({ nama: w.nama, pesan: w.pesan });
+  try { localStorage.setItem('ucapan', JSON.stringify(lok)); } catch (err) {}
+  var btn = this.querySelector('button'), st = document.getElementById('wStatus');
+  fetch(SB, { method: 'POST', headers: { apikey: SB_KEY, Authorization: 'Bearer ' + SB_KEY,
+      'Content-Type': 'application/json', Prefer: 'return=minimal' }, body: JSON.stringify({ nama: w.nama, pesan: w.pesan }) })
+    .then(function (r) { st.textContent = r.ok ? 'Terkirim — terima kasih!' : 'Tersimpan di perangkat Anda.'; })
+    .catch(function () { st.textContent = 'Tersimpan di perangkat Anda.'; });
+  muatWall(); this.reset();
+  setTimeout(function () { st.textContent = ''; }, 4000);
+};
 
 /* --- 9. ALAT BELAJAR: buat link personal --- */
 /* --- 10. LIGHTBOX GALERI --- */
