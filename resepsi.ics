@@ -15,7 +15,7 @@ DESCRIPTION:Undangan online: https://farisathaa-del.github.io/undangan-saib
 BEGIN:VALARM
 TRIGGER:-P1D
 ACTION:DISPLAY
-DESCRIPTION:Besok akad nikah
+DESCRIPTION:Besok Resepsi — Faris & Saiba
 END:VALARM
 END:VEVENT
 END:VCALENDAR
