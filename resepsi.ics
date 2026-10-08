@@ -1,0 +1,21 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//faris-saiba//id
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:resepsi@faris-saiba
+DTSTAMP:20261008T000000Z
+DTSTART:20280228T030000Z
+DTEND:20280228T070000Z
+SUMMARY:Resepsi — Faris & Saiba
+LOCATION:Hadrah Garden\, Lampeuneurut Ujong Blang\, Aceh Besar
+DESCRIPTION:Undangan online: https://farisathaa-del.github.io/undangan-saib
+ a-faris/
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Besok akad nikah
+END:VALARM
+END:VEVENT
+END:VCALENDAR

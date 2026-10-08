@@ -310,8 +310,8 @@
     <div><b id="s">00</b><span>Detik</span></div>
   </div>
   <div class="navigasi">
-    <a class="map" id="kalAkad" download="Akad-Faris-Saiba.ics">SIMPAN AKAD</a>
-    <a class="map" id="kalResepsi" download="Resepsi-Faris-Saiba.ics">SIMPAN RESEPSI</a>
+    <a class="map" href="akad.ics" target="_blank" rel="noopener" download="Akad-Faris-Saiba.ics">SIMPAN AKAD</a>
+    <a class="map" href="resepsi.ics" target="_blank" rel="noopener" download="Resepsi-Faris-Saiba.ics">SIMPAN RESEPSI</a>
   </div>
 </section>
 
@@ -618,24 +618,6 @@ if (document.querySelector('.script')) if(document.querySelector('.script')){var
     if (!jalan) { jalan = true; requestAnimationFrame(loop); }
   }, { passive: true });
 })();
-
-/* --- 8d. SIMPAN KE KALENDER: .ics dirakit di browser, tanpa file server --- */
-function bikinIcs(tajuk, jamUtc, durasiJam, ulang) {
-  function p2(x) { return (x < 10 ? '0' : '') + x; }
-  function w(d) { return d.getUTCFullYear() + p2(d.getUTCMonth() + 1) + p2(d.getUTCDate()) + 'T' + p2(d.getUTCHours()) + p2(d.getUTCMinutes()) + '00Z'; }
-  var mulai = new Date(Date.UTC(2028, 1, 28, jamUtc, 0));
-  var selesai = new Date(mulai.getTime() + durasiJam * 36e5);
-  return ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//faris-saiba//id', 'BEGIN:VEVENT',
-    'UID:' + ulang + '@faris-saiba', 'DTSTAMP:' + w(new Date()),
-    'DTSTART:' + w(mulai), 'DTEND:' + w(selesai),
-    'SUMMARY:' + tajuk,
-    'LOCATION:Hadrah Garden, Lampeuneurut Ujong Blang, Aceh Besar',
-    'DESCRIPTION:Undangan online: https://farisathaa-del.github.io/undangan-saiba-faris/',
-    'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
-}
-// WIB = UTC+7 -> 08.00 WIB = 01.00 UTC (ponytail: tetap UTC manual; kalau ada acara lain, pindah ke data-attr)
-document.getElementById('kalAkad').href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(bikinIcs('Akad Nikah — Faris & Saiba', 1, 1.5, 'akad'));
-document.getElementById('kalResepsi').href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(bikinIcs('Resepsi — Faris & Saiba', 3, 4, 'resepsi'));
 
 /* --- 9. ALAT BELAJAR: buat link personal --- */
 /* --- 10. LIGHTBOX GALERI --- */
